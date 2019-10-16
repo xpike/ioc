@@ -8,6 +8,9 @@ jobs:
         displayName: Restore
         inputs:
           command: restore
+          feedsToUse: select
+          vstsFeed: "xpike-daily"
+          includeNuGetOrg: true
           projects: |
             **/*.csproj
 
