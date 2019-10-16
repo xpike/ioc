@@ -1,0 +1,114 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC", "XPike.IoC\XPike.IoC.csproj", "{544CA415-277D-433D-AD96-11F2C0FDF5EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.Microsoft", "XPike.IoC.Microsoft\XPike.IoC.Microsoft.csproj", "{F2C9E43F-7D1A-4117-B302-05A5CEC29893}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.Microsoft.AspNetCore", "XPike.IoC.Microsoft.AspNetCore\XPike.IoC.Microsoft.AspNetCore.csproj", "{FEFC2F46-2765-4813-9D22-A8857A501555}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.Microsoft.WebApi", "XPike.IoC.Microsoft.WebApi\XPike.IoC.Microsoft.WebApi.csproj", "{A93F7389-500C-40A0-955B-25718B420462}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.Owin", "XPike.IoC.Owin\XPike.IoC.Owin.csproj", "{16D96174-F655-443B-A93B-0BBD8F0575D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.SimpleInjector", "XPike.IoC.SimpleInjector\XPike.IoC.SimpleInjector.csproj", "{736A21F6-3A16-41F3-86AE-BDEA01547BE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.SimpleInjector.AspNetCore", "XPike.IoC.SimpleInjector.AspNetCore\XPike.IoC.SimpleInjector.AspNetCore.csproj", "{94FC1910-2414-441C-8400-1432C51CDF45}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.SimpleInjector.WebAPI", "XPike.IoC.SimpleInjector.WebAPI\XPike.IoC.SimpleInjector.WebAPI.csproj", "{807EE8E8-5D0D-45FF-8D9D-BB48CBA719E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{29DE8C6A-39B6-46E0-969A-F8212729AF6C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.Microsoft.Tests", "..\test\XPike.IoC.Microsoft.Tests\XPike.IoC.Microsoft.Tests.csproj", "{4EAF5D7B-2A04-4D54-9586-C048BA4C0C52}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.SimpleInjector.AspNetCore.Tests", "..\test\XPike.IoC.SimpleInjector.AspNetCore.Tests\XPike.IoC.SimpleInjector.AspNetCore.Tests.csproj", "{3F1C541A-5CCF-4210-A6C8-21AA6FA1D8C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.SimpleInjector.Tests", "..\test\XPike.IoC.SimpleInjector.Tests\XPike.IoC.SimpleInjector.Tests.csproj", "{F99D4216-D7FA-4EFC-B41F-99ABB8BFA573}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPike.IoC.Tests", "..\test\XPike.IoC.Tests\XPike.IoC.Tests.csproj", "{5334332E-0484-41CB-9471-4DADA17A50A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{1E615706-C3C6-4731-88F5-4D162233274E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{52B993EF-385D-4DD2-B000-2F925E575326}"
+	ProjectSection(SolutionItems) = preProject
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{56BB77C6-22FA-40C4-B4C1-C87715CDAC70}"
+	ProjectSection(SolutionItems) = preProject
+		..\azurepipelines.yml = ..\azurepipelines.yml
+		common.build.props = common.build.props
+		multitarget.build.props = multitarget.build.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{544CA415-277D-433D-AD96-11F2C0FDF5EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{544CA415-277D-433D-AD96-11F2C0FDF5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{544CA415-277D-433D-AD96-11F2C0FDF5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{544CA415-277D-433D-AD96-11F2C0FDF5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2C9E43F-7D1A-4117-B302-05A5CEC29893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C9E43F-7D1A-4117-B302-05A5CEC29893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C9E43F-7D1A-4117-B302-05A5CEC29893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C9E43F-7D1A-4117-B302-05A5CEC29893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEFC2F46-2765-4813-9D22-A8857A501555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEFC2F46-2765-4813-9D22-A8857A501555}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEFC2F46-2765-4813-9D22-A8857A501555}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEFC2F46-2765-4813-9D22-A8857A501555}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A93F7389-500C-40A0-955B-25718B420462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93F7389-500C-40A0-955B-25718B420462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93F7389-500C-40A0-955B-25718B420462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93F7389-500C-40A0-955B-25718B420462}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16D96174-F655-443B-A93B-0BBD8F0575D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16D96174-F655-443B-A93B-0BBD8F0575D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16D96174-F655-443B-A93B-0BBD8F0575D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16D96174-F655-443B-A93B-0BBD8F0575D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{736A21F6-3A16-41F3-86AE-BDEA01547BE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{736A21F6-3A16-41F3-86AE-BDEA01547BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{736A21F6-3A16-41F3-86AE-BDEA01547BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{736A21F6-3A16-41F3-86AE-BDEA01547BE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94FC1910-2414-441C-8400-1432C51CDF45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94FC1910-2414-441C-8400-1432C51CDF45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94FC1910-2414-441C-8400-1432C51CDF45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94FC1910-2414-441C-8400-1432C51CDF45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{807EE8E8-5D0D-45FF-8D9D-BB48CBA719E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{807EE8E8-5D0D-45FF-8D9D-BB48CBA719E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{807EE8E8-5D0D-45FF-8D9D-BB48CBA719E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{807EE8E8-5D0D-45FF-8D9D-BB48CBA719E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EAF5D7B-2A04-4D54-9586-C048BA4C0C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EAF5D7B-2A04-4D54-9586-C048BA4C0C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EAF5D7B-2A04-4D54-9586-C048BA4C0C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EAF5D7B-2A04-4D54-9586-C048BA4C0C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F1C541A-5CCF-4210-A6C8-21AA6FA1D8C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F1C541A-5CCF-4210-A6C8-21AA6FA1D8C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F1C541A-5CCF-4210-A6C8-21AA6FA1D8C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F1C541A-5CCF-4210-A6C8-21AA6FA1D8C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F99D4216-D7FA-4EFC-B41F-99ABB8BFA573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F99D4216-D7FA-4EFC-B41F-99ABB8BFA573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F99D4216-D7FA-4EFC-B41F-99ABB8BFA573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F99D4216-D7FA-4EFC-B41F-99ABB8BFA573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5334332E-0484-41CB-9471-4DADA17A50A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5334332E-0484-41CB-9471-4DADA17A50A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5334332E-0484-41CB-9471-4DADA17A50A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5334332E-0484-41CB-9471-4DADA17A50A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4EAF5D7B-2A04-4D54-9586-C048BA4C0C52} = {29DE8C6A-39B6-46E0-969A-F8212729AF6C}
+		{3F1C541A-5CCF-4210-A6C8-21AA6FA1D8C0} = {29DE8C6A-39B6-46E0-969A-F8212729AF6C}
+		{F99D4216-D7FA-4EFC-B41F-99ABB8BFA573} = {29DE8C6A-39B6-46E0-969A-F8212729AF6C}
+		{5334332E-0484-41CB-9471-4DADA17A50A6} = {29DE8C6A-39B6-46E0-969A-F8212729AF6C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {08A3D874-DCF3-4740-B971-6C8490600971}
+	EndGlobalSection
+EndGlobal

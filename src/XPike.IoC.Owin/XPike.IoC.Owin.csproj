@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../common.build.props" />
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <Description>
+      Dependency Injection and Inversion of Control support for legacy OWIN applications and microservices
+      using the xPike paved-road.
+    </Description>
+    <PackageTags>microservices DI IoC DependencyInjection OWIN</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Owin" Version="2.0.2" />
+    <PackageReference Include="Owin" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XPike.IoC\XPike.IoC.csproj" />
+  </ItemGroup>
+</Project>

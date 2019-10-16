@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../common.build.props"/>
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <Description>
+      Dependency Injection and Inversion of Control abstractions for building microservices with the xPike paved-road.
+    </Description>
+    <PackageTags>microservices DI IoC DependencyInjection</PackageTags>
+  </PropertyGroup>
+  
+</Project>

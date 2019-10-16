@@ -1,0 +1,68 @@
+name: 1.0.$(Rev:r)
+jobs:
+  - job:
+    pool:
+      vmImage: windows-latest
+    steps:
+      - task: DotNetCoreCLI@2
+        displayName: Restore
+        inputs:
+          command: restore
+          projects: |
+            **/*.csproj
+
+      - task: DotNetCoreCLI@2
+        displayName: Build
+        inputs:
+          command: build
+          arguments: --no-restore -c release -p:Version=$(Build.BuildNumber).$(Build.BuildId)
+          projects: |
+            src/**/*.csproj
+
+      - task: DotNetCoreCLI@2
+        displayName: Test
+        inputs:
+          command: test
+          publishTestResults: false
+          arguments: --no-restore -c debug --logger trx -r $(Agent.TempDirectory)/TestResults -p:CollectCoverage=true -p:CoverletOutput="$(Agent.TempDirectory)/TestResults/" -p:CoverletOutputFormat="json%2cCobertura" -p:MergeWith="$(Agent.TempDirectory)/TestResults/coverage.json" 
+          projects: |
+            test/**/*.csproj
+
+      - task: PublishCodeCoverageResults@1
+        displayName: Publish code coverage results
+        inputs:
+          codeCoverageTool: "Cobertura"
+          summaryFileLocation: "$(Agent.TempDirectory)/TestResults/coverage.cobertura.xml"
+
+      - task: PublishTestResults@2
+        displayName: Publish test results
+        inputs:
+          searchFolder: $(Agent.TempDirectory)/TestResults
+          failTaskOnFailedTests: true
+          mergeTestResults: true
+          testResultsFormat: "VSTest"
+          testResultsFiles: "**/*.trx"
+
+      - task: DotNetCoreCLI@2
+        displayName: Package unstable
+        inputs:
+          command: custom
+          custom: pack
+          arguments: -c release --no-build -p:PackageVersion=$(Build.BuildNumber)-dev$(Build.BuildId) -o $(Build.ArtifactStagingDirectory)
+          projects: |
+            src/**/*.csproj
+
+      - task: DotNetCoreCLI@2
+        displayName: Package stable for Nuget
+        inputs:
+          command: custom
+          custom: pack
+          arguments: -c release --no-build -p:PackageVersion=$(Build.BuildNumber) -o $(Build.ArtifactStagingDirectory)
+          projects: |
+            src/**/*.csproj
+
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Build Artifact
+
+    
+      

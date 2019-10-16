@@ -8,10 +8,13 @@
 *.user
 *.userosscache
 *.sln.docstates
+.vs/
+.vscode/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+ExecutionHistory/
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -219,6 +222,7 @@ ClientBin/
 *.jfm
 *.pfx
 *.publishsettings
+node_modules/
 orleans.codegen.cs
 
 # Including strong name files can present a security risk 
@@ -325,6 +329,9 @@ ASALocalRun/
 
 # NVidia Nsight GPU debugger configuration file
 *.nvuser
+# Merge artifacts
+*.orig
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+**/\.serverless/
