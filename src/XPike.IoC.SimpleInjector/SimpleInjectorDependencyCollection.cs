@@ -39,7 +39,7 @@ namespace XPike.IoC.SimpleInjector
 
         public void AddSingletonToCollection<TService, TImplementation>() where TService : class
         {
-            Container.Collection.Append(typeof(TService), typeof(TImplementation), Lifestyle.Singleton);
+            AddSingletonToCollection(typeof(TService), typeof(TImplementation));
         }
 
         public void AddSingletonToCollection<TService, TImplementation>(Func<IDependencyProvider, TService> implementationFactory) where TService : class where TImplementation : class, TService
@@ -52,7 +52,7 @@ namespace XPike.IoC.SimpleInjector
         }
 
         public void AddSingletonToCollection(Type genericInterface, Type genericImplementation) =>
-            Container.Collection.Append(genericInterface, genericImplementation);
+            Container.Collection.Append(genericInterface, genericImplementation, Lifestyle.Singleton);
 
         public void RegisterScoped<TService, TImplementation>() where TService : class where TImplementation : class
         {
@@ -114,7 +114,7 @@ namespace XPike.IoC.SimpleInjector
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1825:Avoid zero-length array allocations.", Justification = "Array.Empty is not supported in net452")]
         public void ResetCollection<TService>() =>
-            Container.Collection.Register(typeof(TService), new TService[0]);
+            Container.Collection.Register(typeof(TService), new Type[0]);
 
         public void AddSingletonToCollection<TService>(TService instance) where TService : class
         {
