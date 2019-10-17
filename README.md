@@ -1,5 +1,7 @@
 ﻿# XCore.IoC
 
+[![Build Status](https://dev.azure.com/xpike/xpike/_apis/build/status/xpike-ioc?branchName=master)](https://dev.azure.com/xpike/xpike/_build/latest?definitionId=2&branchName=master)
+
 Provides interfaces to standardize IoC functionality across providers.
 
 Strongly encourages the use of a Dependency Injection / Inversion of Control paradigm.
