@@ -1,4 +1,4 @@
-﻿# XCore.IoC
+﻿# XPike.IoC
 
 [![Build Status](https://dev.azure.com/xpike/xpike/_apis/build/status/xpike-ioc?branchName=master)](https://dev.azure.com/xpike/xpike/_build/latest?definitionId=2&branchName=master)
 
@@ -14,19 +14,13 @@ Also allows for a Service Location paradigm, by allowing the IDependencyContaine
 
 Represents the Dependency Container which holds mappings between requested services and the configured implementation(s).
 
-**NOTE:** Behavior may vary between providers.  For example, SimpleInjector validates all registrations at startup (assuming you are not injecting IDependencyContainer itself).  It also prohibits modifying registrations after the first call to <code>ResolveDependency</code>.
+**NOTE:** Behavior may vary between providers.  For example, SimpleInjector validates all registrations at startup (assuming you are not injecting IDependencyContainer itself).  It also prohibits modifying registrations after the first call to `ResolveDependency`.
 
 ### IDependencyPackage
 
 Provides a standard mechanism for registering multiple mappings (and other Packages) into a container, to simplify DI configuration.
 
 A recommended pattern is to have one Package which represents the entire application, by including other Packages.
-
-### InjectAttribute
-
-Used to mark a specific constructor as the injectable one.
-
-Necessary when an DI-mapped class has multiple constructors (only one can be used with DI).
 
 ### PackageLoader
 
@@ -40,18 +34,19 @@ Wherever your application configures the `IDependencyContainer` (for example, `S
 
 ##### Loading a Package from another Package
 
-    using XPike.IoC;
-    
-    public class Package
-        : IDependencyPackage
+```cs
+using XPike.IoC;
+
+public class Package : IDependencyPackage
+{
+    void RegisterPackage(IDependencyContainer container)
     {
-        void RegisterPackage(IDependencyContainer container)
-        {
-            container.LoadPackage(new XPike.Configuration.Package());
-                
-            // Registrations for your library go here.
-        }
+        container.LoadPackage(new XPike.Configuration.Package());
+            
+        // Registrations for your library go here.
     }
+}
+```
 
 ## Important!
 
