@@ -39,7 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{52B993
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{56BB77C6-22FA-40C4-B4C1-C87715CDAC70}"
 	ProjectSection(SolutionItems) = preProject
-		..\azurepipelines.yml = ..\azurepipelines.yml
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
 		common.build.props = common.build.props
 		multitarget.build.props = multitarget.build.props
 	EndProjectSection

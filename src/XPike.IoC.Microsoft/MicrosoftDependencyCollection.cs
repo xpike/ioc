@@ -9,18 +9,26 @@ namespace XPike.IoC.Microsoft
     {
         public IServiceCollection ServiceCollection { get; }
 
-        public MicrosoftDependencyCollection(IServiceCollection serviceCollection)
+        /// <summary>
+        /// Creates a new Microsoft Dependency Collection, which is a wrapper around an IServiceCollection.
+        /// By default, this will verify the dependency graph and register itself in the container.
+        /// To use this class as a direct shim, the verify and selfRegister parameters should be specified as false.
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        /// <param name="verify"></param>
+        /// <param name="selfRegister"></param>
+        public MicrosoftDependencyCollection(IServiceCollection serviceCollection, bool verify = true, bool selfRegister = true)
         {
             ServiceCollection = serviceCollection;
 
-            // Add the serviceCollection itself to the container. This is requried for IDependencyProvider.Verify()
-            // to work, as it needs the collection to walk the graph, validating scope and ability to resolve.
-            ServiceCollection.AddServiceProviderVerification();
+            if (verify)
+                // Add the serviceCollection itself to the container. This is required for IDependencyProvider.Verify()
+                // to work, as it needs the collection to walk the graph, validating scope and ability to resolve.
+                ServiceCollection.AddServiceProviderVerification();
 
-            // Add IDependencyProvider to the container so it can be injected/resolved for service location when needed.
-            ServiceCollection.TryAddSingleton<IDependencyProvider>(provider => {
-                return new MicrosoftDependencyProvider(provider);
-            });
+            if (selfRegister)
+                // Add IDependencyProvider to the container so it can be injected/resolved for service location when needed.
+                ServiceCollection.TryAddSingleton<IDependencyProvider>(provider => new MicrosoftDependencyProvider(provider));
         }
 
         public IDependencyProvider BuildDependencyProvider(bool verifyOnBuild = true)
