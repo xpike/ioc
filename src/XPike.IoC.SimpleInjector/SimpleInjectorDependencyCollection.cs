@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 
@@ -42,7 +41,7 @@ namespace XPike.IoC.SimpleInjector
             AddSingletonToCollection(typeof(TService), typeof(TImplementation));
         }
 
-        public void AddSingletonToCollection<TService, TImplementation>(Func<IDependencyProvider, TService> implementationFactory) where TService : class where TImplementation : class, TService
+        public void AddSingletonToCollection<TService, TImplementation>(Func<IDependencyProvider, TImplementation> implementationFactory) where TService : class where TImplementation : class, TService
         {
             Container.Collection.Append<TService>(
                 ()=> 

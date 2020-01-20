@@ -5,7 +5,8 @@ using XPike.Extensions.DependencyInjection;
 
 namespace XPike.IoC.Microsoft
 {
-    public class MicrosoftDependencyCollection : IDependencyCollection
+    public class MicrosoftDependencyCollection
+        : IDependencyCollection
     {
         public IServiceCollection ServiceCollection { get; }
 
@@ -25,10 +26,12 @@ namespace XPike.IoC.Microsoft
                 // Add the serviceCollection itself to the container. This is required for IDependencyProvider.Verify()
                 // to work, as it needs the collection to walk the graph, validating scope and ability to resolve.
                 ServiceCollection.AddServiceProviderVerification();
+            
+            ServiceCollection.TryAddSingleton(provider => new MicrosoftDependencyProvider(provider));
 
             if (selfRegister)
                 // Add IDependencyProvider to the container so it can be injected/resolved for service location when needed.
-                ServiceCollection.TryAddSingleton<IDependencyProvider>(provider => new MicrosoftDependencyProvider(provider));
+                ServiceCollection.TryAddSingleton<IDependencyProvider>(provider => provider.GetService<MicrosoftDependencyProvider>());
         }
 
         public IDependencyProvider BuildDependencyProvider(bool verifyOnBuild = true)
@@ -51,14 +54,11 @@ namespace XPike.IoC.Microsoft
             ServiceCollection.TryAddEnumerable(new ServiceDescriptor(typeof(TService), typeof(TImplementation), ServiceLifetime.Singleton));
         }
 
-        public void AddSingletonToCollection<TService, TImplementation>(Func<IDependencyProvider, TService> implementationFactory) where TService : class where TImplementation : class, TService
-        {
-            ServiceCollection.TryAddEnumerable(
-                ServiceDescriptor.Singleton<TService, TImplementation>((provider) =>
-            {
-                return implementationFactory(provider.GetService<IDependencyProvider>()) as TImplementation;
-            }));
-        }
+        public void AddSingletonToCollection<TService, TImplementation>(Func<IDependencyProvider, TImplementation> implementationFactory)
+            where TService : class
+            where TImplementation : class, TService =>
+            ServiceCollection.TryAddEnumerable(ServiceDescriptor.Singleton<TService, TImplementation>(provider =>
+                implementationFactory(provider.GetService<MicrosoftDependencyProvider>())));
 
         public void AddSingletonToCollection(Type genericInterface, Type genericImplementation) 
         {

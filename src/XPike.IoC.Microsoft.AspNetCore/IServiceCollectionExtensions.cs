@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace XPike.IoC.Microsoft.AspNetCore
 {
@@ -53,7 +54,13 @@ namespace XPike.IoC.Microsoft.AspNetCore
         public static IDependencyCollection AddXPikeDependencyInjection(this IServiceCollection services)
         {
             IDependencyCollection dependencyCollection = new MicrosoftDependencyCollection(services);
-            
+            services.RemoveAll(typeof(IDependencyCollection));
+            services.AddSingleton<IDependencyCollection>(dependencyCollection);
+
+            services.RemoveAll(typeof(IDependencyProvider));
+            services.AddSingleton<IDependencyProvider, MicrosoftDependencyProvider>(provider =>
+                new MicrosoftDependencyProvider(provider));
+
             return dependencyCollection;
         }
     }

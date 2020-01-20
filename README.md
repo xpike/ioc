@@ -9,6 +9,260 @@ Strongly encourages the use of a Dependency Injection / Inversion of Control par
 
 Also allows for a Service Location paradigm, by allowing the IDependencyContainer to be injected.  *This is not recommended, however, as it can introduce run-time binding errors which otherwise would have been caught using a purely-DI approach.*
 
+## Quick Start
+
+### .NET Core 3
+
+In .NET Core 3, there is virtually no difference between setting up the
+default Microsoft Dependency Provider for XPike, or SimpleInjector - other
+than which library's extension methods you import via a `using` statement.
+
+**`Program.cs`:**
+
+```csharp
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using XPike.IoC.Microsoft.AspNetCore;
+
+namespace ExampleNetCoreApp
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
+                .AddXPikeDependencyInjection(container =>
+                {
+                    // Register dependencies here or in Startup.cs.
+                    // eg: container.AddXPikeCaching()
+                });
+    }
+}
+```
+
+**`Startup.cs`:**
+
+```csharp
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using XPike.IoC.Microsoft.AspNetCore;
+
+namespace ExampleNetCoreApp
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+            services.AddControllers();
+
+            // Register dependencies here or in Program.cs.
+            // eg: services.AddXPikeCaching()
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseXPikeDependencyInjection();
+
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+
+            app.UseRouting();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+        }
+    }
+}
+```  
+    
+---
+##### To use SimpleInjector in .NET Core 3:
+
+In both files, replace
+```csharp
+using XPike.IoC.Microsoft.AspNetCore;
+```
+with:
+```csharp
+using XPike.IoC.SimpleInjector.AspNetCore;
+```
+
+---
+### .NET Core 2.2
+
+In .NET Core 2.2, setting up the default Microsoft Dependency Provider
+for XPike differs slightly from how you setup SimpleInjector.  Your best
+bet is to follow these patterns precisely for a painless setup.
+
+##### Microsoft Dependency Injection
+
+**`Program.cs`:**
+
+```csharp
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using XPike.IoC.Microsoft.AspNetCore;
+using Microsoft.Extensions.Hosting;
+
+namespace ExampleNetCoreApp
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateWebHostBuilder(args).Build().Run();
+        }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                   .AddXPikeDependencyInjection(container =>
+                   {
+                       // Register dependencies here or in Startup.cs.
+                       // eg: container.AddXPikeCaching();
+                   })
+                   .UseStartup<Startup>();
+    }
+}
+```
+
+**`Startup.cs`:**
+
+```csharp
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using XPike.IoC.Microsoft.AspNetCore;
+
+namespace ExampleNetCoreApp
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Register dependencies here or in Program.cs.
+            // eg: services.AddXPikeCaching();
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.UseXPikeDependencyInjection();
+
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+
+            app.UseMvc();
+        }
+    }
+}
+```
+
+##### SimpleInjector Dependency Injection
+
+**`Program.cs`:**
+
+```csharp
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+
+namespace ExampleNetCoreApp
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateWebHostBuilder(args).Build().Run();
+        }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                   .UseStartup<Startup>();
+    }
+}
+```
+
+**`Startup.cs`:**
+
+```csharp
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using XPike.IoC.SimpleInjector.AspNetCore;
+
+namespace ExampleNetCoreApp
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Register IServiceCollection-friendly dependencies here.
+            // eg: services.AddSomeLibrary();
+            // or: services.AddXPikeEncryption();
+
+            var container = services.AddXPikeDependencyInjection();
+
+            // Register XPike-only dependencies here.
+            // eg: container.AddXPikeCaching();
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.UseXPikeDependencyInjection();
+
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+
+            app.UseMvc();
+        }
+    }
+}
+```
+
+### .NET Framework / Owin
+
+Getting things setup on these platforms is a little difficult right now.
+Once setup is simplified and things are stabilized we'll post examples.
+
 ## Components
 
 ### IDependencyContainer

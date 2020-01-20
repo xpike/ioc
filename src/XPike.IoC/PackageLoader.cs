@@ -10,6 +10,14 @@ namespace XPike.IoC
     {
         private static readonly List<Type> _loadedPackages = new List<Type>();
 
+        public static void ResetPackages() => _loadedPackages.Clear();
+
+        public static IDependencyCollection ResetPackages(this IDependencyCollection dependencyCollection)
+        {
+            ResetPackages();
+            return dependencyCollection;
+        }
+
         /// <summary>
         /// Can be optionally used to reduce the overhead of repeatedly registering the same packages once they are loaded.
         /// </summary>

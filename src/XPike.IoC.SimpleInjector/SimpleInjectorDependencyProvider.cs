@@ -9,7 +9,7 @@ namespace XPike.IoC.SimpleInjector
     {
         private MethodInfo beginScope;
 
-        internal SimpleInjectorDependencyProvider(Container container)
+        public SimpleInjectorDependencyProvider(Container container)
         {
             Container = container ?? throw new ArgumentNullException(nameof(container));
 

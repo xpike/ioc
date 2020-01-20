@@ -415,7 +415,7 @@ namespace XPike.IoC.Tests
         {
             var services = GetDependencyCollection();
 
-            services.AddSingletonToCollection<IFoo, Foo2>((provider) => { return new Foo(); });
+            services.AddSingletonToCollection<IFoo, Foo2>((provider) => { return new Foo2(); });
 
             Assert.AreEqual(GetLifetime(services, LifeTimes.Singleton), GetCollectionRegisteredLifetime<IFoo>(services, typeof(IFoo)));
         }

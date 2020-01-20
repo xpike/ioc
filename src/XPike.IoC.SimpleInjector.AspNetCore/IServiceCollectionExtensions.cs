@@ -22,16 +22,22 @@ namespace XPike.IoC.SimpleInjector.AspNetCore
         /// <remarks>
         /// See https://simpleinjector.readthedocs.io/en/latest/aspnetintegration.html 
         /// </remarks>
-        public static IDependencyCollection AddXPikeDependencyInjection(this IServiceCollection services, Action<SimpleInjectorAddOptions> options = null)
+        public static IDependencyCollection AddXPikeDependencyInjection(this IServiceCollection services,
+            Action<SimpleInjectorAddOptions> options = null)
         {
-            SimpleInjectorDependencyCollection dependencyCollection = new SimpleInjectorDependencyCollection();
+            var dependencyCollection = new SimpleInjectorDependencyCollection();
+            var provider = new SimpleInjectorDependencyProvider(dependencyCollection.Container);
 
-            services.AddSingleton(dependencyCollection.Container);
-            services.AddSingleton(typeof(IDependencyCollection), dependencyCollection);
+            services.AddSingleton<Container>(dependencyCollection.Container);
+            services.AddSingleton<IDependencyCollection>(dependencyCollection);
+            services.AddSingleton<IDependencyProvider>(provider);
+            services.AddSingleton<IServiceCollection>(services);
+
+            dependencyCollection.Container.Options.AllowOverridingRegistrations = false;
 
             if (options == null)
             {
-                options = (o) => 
+                options = (o) =>
                 {
                     o.AddAspNetCore()
                         .AddControllerActivation();
@@ -39,6 +45,11 @@ namespace XPike.IoC.SimpleInjector.AspNetCore
             }
 
             services.AddSimpleInjector(dependencyCollection.Container, options);
+            
+            dependencyCollection.Container.Options.AllowOverridingRegistrations = true;
+
+            dependencyCollection.RegisterSingleton<IDependencyCollection>(dependencyCollection);
+            dependencyCollection.RegisterSingleton<IDependencyProvider>(provider);
 
             return dependencyCollection;
         }

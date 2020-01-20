@@ -114,7 +114,7 @@ namespace XPike.IoC
         /// <typeparam name="TService">The service type to register.</typeparam>
         /// <typeparam name="TImplementation">The implementation type the delegate will return.</typeparam>
         /// <param name="implementationFactory">A factory delegate that creates and returns and instance of <typeparamref name="TService"/>.</param>
-        void AddSingletonToCollection<TService, TImplementation>(Func<IDependencyProvider, TService> implementationFactory) where TService : class where TImplementation : class, TService;
+        void AddSingletonToCollection<TService, TImplementation>(Func<IDependencyProvider, TImplementation> implementationFactory) where TService : class where TImplementation : class, TService;
 
         /// <summary>
         /// For use when adding an implementation which will be retrieved as part of a collection.
