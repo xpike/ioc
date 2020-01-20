@@ -23,6 +23,7 @@ namespace XPike.IoC.SimpleInjector.AspNetCore.Tests
         public void Basic_wireup()
         {
             IServiceCollection services = new ServiceCollection();
+            services.AddMvcCore();
 
             services.AddXPikeDependencyInjection((options) => { });
 
@@ -37,6 +38,7 @@ namespace XPike.IoC.SimpleInjector.AspNetCore.Tests
         public void Basic_Resolution()
         {
             IServiceCollection services = new ServiceCollection();
+            services.AddMvcCore();
 
             services.AddXPikeDependencyInjection((options) => { })
                 .LoadPackage(new TestPackage());
@@ -57,6 +59,7 @@ namespace XPike.IoC.SimpleInjector.AspNetCore.Tests
         public void Chained_Resolution()
         {
             IServiceCollection services = new ServiceCollection();
+            services.AddMvcCore();
 
             var xpikeProvider = services.AddXPikeDependencyInjection((options) => { });
             xpikeProvider.LoadPackage(new TestPackage());
@@ -84,6 +87,7 @@ namespace XPike.IoC.SimpleInjector.AspNetCore.Tests
             try
             {
                 IServiceCollection services = new ServiceCollection();
+                services.AddMvcCore();
 
                 var xpikeProvider = services.AddXPikeDependencyInjection((options) => { });
                 xpikeProvider.LoadPackage(new TestPackage());

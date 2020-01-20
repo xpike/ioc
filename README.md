@@ -42,7 +42,12 @@ namespace ExampleNetCoreApp
                 .AddXPikeDependencyInjection(container =>
                 {
                     // Register dependencies here or in Startup.cs.
-                    // eg: container.AddXPikeCaching()
+                    // eg: container.AddXPikeCaching();
+                },
+                provider =>
+                {
+                    // Configure XPike here or in Startup.cs.
+                    // eg: provider.UseXPikeCaching();
                 });
     }
 }
@@ -80,7 +85,8 @@ namespace ExampleNetCoreApp
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseXPikeDependencyInjection();
+            // Configure XPike here or in Program.cs
+            // eg: app.GetXPike().UseXPikeCaching();
 
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
@@ -138,6 +144,11 @@ namespace ExampleNetCoreApp
                    {
                        // Register dependencies here or in Startup.cs.
                        // eg: container.AddXPikeCaching();
+                   },
+                   provider =>
+                   {
+                       // Configure XPike here or in Startup.cs.
+                       // eg: provider.UseXPikeCaching();
                    })
                    .UseStartup<Startup>();
     }
@@ -175,7 +186,8 @@ namespace ExampleNetCoreApp
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseXPikeDependencyInjection();
+            // Configure XPike here or in Program.cs
+            // eg: app.GetXPike().UseXPikeCaching();
 
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
@@ -239,7 +251,11 @@ namespace ExampleNetCoreApp
             // eg: services.AddSomeLibrary();
             // or: services.AddXPikeEncryption();
 
-            var container = services.AddXPikeDependencyInjection();
+            var container = services.AddXPikeDependencyInjection(provider => 
+            {
+                // Configure XPike here or in Configure()
+                // eg: provider.UseXPikeCaching();
+            });
 
             // Register XPike-only dependencies here.
             // eg: container.AddXPikeCaching();
@@ -247,7 +263,8 @@ namespace ExampleNetCoreApp
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseXPikeDependencyInjection();
+            // Configure XPike here or in ConfigureServices():
+            // eg: app.GetXPike().UseXPikeCaching();
 
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();

@@ -2,9 +2,7 @@
 using SimpleInjector;
 using SimpleInjector.Integration.ServiceCollection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.AspNetCore.Hosting;
 
 namespace XPike.IoC.SimpleInjector.AspNetCore
 {
@@ -23,6 +21,7 @@ namespace XPike.IoC.SimpleInjector.AspNetCore
         /// See https://simpleinjector.readthedocs.io/en/latest/aspnetintegration.html 
         /// </remarks>
         public static IDependencyCollection AddXPikeDependencyInjection(this IServiceCollection services,
+            Action<IDependencyProvider> configureProvider = null,
             Action<SimpleInjectorAddOptions> options = null)
         {
             var dependencyCollection = new SimpleInjectorDependencyCollection();
@@ -50,6 +49,8 @@ namespace XPike.IoC.SimpleInjector.AspNetCore
 
             dependencyCollection.RegisterSingleton<IDependencyCollection>(dependencyCollection);
             dependencyCollection.RegisterSingleton<IDependencyProvider>(provider);
+
+            services.AddSingleton<IStartupFilter, StartupFilter>(_ => new StartupFilter(configureProvider));
 
             return dependencyCollection;
         }

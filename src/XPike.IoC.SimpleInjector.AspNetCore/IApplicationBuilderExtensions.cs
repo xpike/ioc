@@ -10,6 +10,9 @@ namespace XPike.IoC.SimpleInjector.AspNetCore
 {
     public static class IApplicationBuilderExtensions
     {
+        public static IDependencyProvider GetXPike(this IApplicationBuilder app) =>
+            app.ApplicationServices.GetRequiredService<IDependencyProvider>();
+
         public static IDependencyProvider UseXPikeDependencyInjection(this IApplicationBuilder app,
             Action<SimpleInjectorUseOptions> options = null)
         {

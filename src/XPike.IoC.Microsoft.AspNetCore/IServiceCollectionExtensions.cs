@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace XPike.IoC.Microsoft.AspNetCore
@@ -51,7 +53,8 @@ namespace XPike.IoC.Microsoft.AspNetCore
         /// </summary>
         /// <param name="services">The services.</param>
         /// <returns>IDependencyCollection.</returns>
-        public static IDependencyCollection AddXPikeDependencyInjection(this IServiceCollection services)
+        public static IDependencyCollection AddXPikeDependencyInjection(this IServiceCollection services,
+            Action<IDependencyProvider> configureProvider = null)
         {
             IDependencyCollection dependencyCollection = new MicrosoftDependencyCollection(services);
             services.RemoveAll(typeof(IDependencyCollection));
@@ -60,6 +63,8 @@ namespace XPike.IoC.Microsoft.AspNetCore
             services.RemoveAll(typeof(IDependencyProvider));
             services.AddSingleton<IDependencyProvider, MicrosoftDependencyProvider>(provider =>
                 new MicrosoftDependencyProvider(provider));
+
+            services.AddSingleton<IStartupFilter, StartupFilter>(_ => new StartupFilter(configureProvider));
 
             return dependencyCollection;
         }

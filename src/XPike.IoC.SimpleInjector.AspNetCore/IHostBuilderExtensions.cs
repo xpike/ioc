@@ -8,10 +8,11 @@ namespace XPike.IoC.SimpleInjector.AspNetCore
     {
         public static IHostBuilder AddXPikeDependencyInjection(this IHostBuilder hostBuilder,
             Action<IDependencyCollection> setupCollection = null,
+            Action<IDependencyProvider> setupProvider = null,
             Action<SimpleInjectorAddOptions> options = null) =>
             hostBuilder.ConfigureServices((hostBuilderContext, serviceCollection) =>
             {
-                var xpikeCollection = serviceCollection.AddXPikeDependencyInjection(options);
+                var xpikeCollection = serviceCollection.AddXPikeDependencyInjection(setupProvider, options);
                 setupCollection?.Invoke(xpikeCollection);
             });
     }

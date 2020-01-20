@@ -9,6 +9,9 @@ namespace XPike.IoC.Microsoft.AspNetCore
     /// </summary>
     public static class IApplicationBuilderExtensions
     {
+        public static IDependencyProvider GetXPike(this IApplicationBuilder app) =>
+            app.ApplicationServices.GetRequiredService<IDependencyProvider>();
+
         /// <summary>
         /// Tells the application to use xPike dependency injection for resolution.
         /// </summary>

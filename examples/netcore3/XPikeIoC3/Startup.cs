@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using XPike.IoC.Microsoft.AspNetCore;
 using Example.Library.AspNetCore;
 
 namespace XPikeIoC3
@@ -27,21 +26,15 @@ namespace XPikeIoC3
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseXPikeDependencyInjection();
+            // To resolve dependencies or perform additional configuration of XPike:
+            //var quoteProviders = app.GetXPike()..ResolveDependencies<IQuoteProvider>();
 
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
 
             app.UseRouting();
-
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

@@ -22,21 +22,20 @@ namespace XPikeIoC22SI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddExampleLibrary()
-                            .AddXPikeDependencyInjection()
-                            .AddSeriousQuotes();
 
+            services.AddExampleLibrary()
+                .AddXPikeDependencyInjection()
+                .AddSeriousQuotes();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseXPikeDependencyInjection();
+            // To resolve dependencies or perform additional configuration of XPike:
+            //var quoteProviders = app.GetXPike()..ResolveDependencies<IQuoteProvider>();
 
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
 
             app.UseMvc();
         }
